@@ -4,7 +4,7 @@ pipeline {
     }
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        maven "M3"
+        maven "m3"
     }
     environment {
         IMAGE = readMavenPom().getArtifactId()
@@ -21,7 +21,7 @@ pipeline {
         stage('Get Code') {
             steps {
                 // Get some code from a GitHub repository
-                checkout scm
+                git branch: 'pipeline', credentialsId: 'githubpass', url: 'https://github.com/4rk4d1u52/panda_application.git'
             }
         }
         stage('Build and Junit') {
@@ -47,7 +47,7 @@ pipeline {
         }
         stage('Deploy jar to artifactory') {
             steps {
-                configFileProvider([configFile(fileId: '9d1ed313-ea70-4fa9-9934-7108c53eca75', variable: 'MAVEN_GLOBAL_SETTINGS')]) {
+                configFileProvider([configFile(fileId: 'a0722605-3518-4089-bd45-fdc5da7c0aaf', variable: 'MAVEN_GLOBAL_SETTINGS')]) {
                     sh "mvn -gs $MAVEN_GLOBAL_SETTINGS deploy -Dmaven.test.skip=true -e"
                 }
             } 

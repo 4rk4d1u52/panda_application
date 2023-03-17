@@ -15,7 +15,7 @@ pipeline {
         stage('Clear running apps') {
            steps {
                // Clear previous instances of app built
-               sh 'docker rm -f pandaapp || true'
+               sh "docker rm -f pandaapp || true"
            }
         }
         stage('Get Code') {
@@ -55,7 +55,7 @@ pipeline {
             }
             post {
                 always { 
-                    sh 'docker stop pandaapp'
+                    sh "docker stop pandaapp"
                     deleteDir()
                 }
             }

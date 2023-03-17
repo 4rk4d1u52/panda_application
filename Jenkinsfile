@@ -47,18 +47,18 @@ pipeline {
         }
         stage('Deploy jar to artifactory') {
             steps {
-                //configFileProvider([configFile(fileId: 'a0722605-3518-4089-bd45-fdc5da7c0aaf', variable: 'MAVEN_GLOBAL_SETTINGS')]) {
+                //configFileProvider([configFile(fileId: 'ad041d26-6df3-49ea-ab24-b3dc4b26fb22', variable: 'MAVEN_GLOBAL_SETTINGS')]) {
                 //    sh "mvn -gs $MAVEN_GLOBAL_SETTINGS deploy -Dmaven.test.skip=true -e"
                 configFileProvider([configFile(fileId: 'ad041d26-6df3-49ea-ab24-b3dc4b26fb22', variable: 'mavensettings')]) {
                     sh "mvn -s $mavensettings deploy -Dmaven.test.skip=true -e"
                 }
             }
-            post {
-                always { 
-                    sh "docker stop pandaapp"
-                    deleteDir()
-                }
-            }
+        }
+    }
+    post {
+        always { 
+            sh "docker stop pandaapp"
+            deleteDir()
         }
     }
 }

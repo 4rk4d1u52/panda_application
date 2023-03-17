@@ -21,7 +21,7 @@ pipeline {
         stage('Get Code') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'pipeline', credentialsId: 'githubpass', url: 'https://github.com/4rk4d1u52/panda_application.git'
+                checkout scm
             }
         }
         stage('Build and Junit') {

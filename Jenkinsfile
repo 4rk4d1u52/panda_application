@@ -48,9 +48,9 @@ pipeline {
         stage('Deploy jar to artifactory') {
             steps {
                 configFileProvider([configFile(fileId: 'a0722605-3518-4089-bd45-fdc5da7c0aaf', variable: 'MAVEN_GLOBAL_SETTINGS')]) {
-                    sh "mvn -gs $MAVEN_GLOBAL_SETTINGS deploy -Dmaven.test.skip=true -e"
+                    sh "mvn -s $MAVEN_SETTINGS deploy -Dmaven.test.skip=true -e"
                 }
-            } 
+            }
             post {
                 always { 
                     sh 'docker stop pandaapp'
